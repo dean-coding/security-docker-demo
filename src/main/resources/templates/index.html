@@ -1,0 +1,51 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="commons/head :: head"></th:block>
+<body>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">欢迎回来-客户：</h3>
+		</div>
+		<div class="panel-body">
+			<span th:text="${username}"></span>
+		</div>
+	</div>
+	<div th:if="${not #lists.isEmpty(many)}">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">用户列表</h3>
+			</div>
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>姓名</th>
+						<th>年龄</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="person:${many}">
+						<td th:text="${person.name}"></td>
+						<td th:text="${person.age}"></td>
+						<td><button class="btn"
+								th:onclick="'getName(\''+${person.name}+'\');'">获得名字</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- th:replace 替换th:fragment -->
+	<div th:replace="commons/watermark :: watermark"></div>
+	<!--
+		th:insert 3.0+版本新加的
+		th:replace 2.0+ 3.0+都可用
+		th:include 这个在3.0版本已经不建议使用
+	替换th:block -->
+	<div th:replace="commons/footer :: footer"></div>
+	<script th:inline="javascript">
+		function getName(name) {
+			alert(name);
+		}
+	</script>
+</body>
+</html>
